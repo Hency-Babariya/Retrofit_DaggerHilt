@@ -73,6 +73,12 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.6.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.5.0")
 
+    // room
+    implementation("androidx.room:room-runtime:2.5.2")
+    annotationProcessor("androidx.room:room-compiler:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
+
+    //glide
     implementation("com.github.bumptech.glide:glide:4.11.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
 }

@@ -1,5 +1,9 @@
 package com.example.myapplicationxml.retrofit
 
+import android.app.Application
+import androidx.room.Room
+import com.example.myapplicationxml.Constants.MY_DATABASE
+import com.example.myapplicationxml.roomdb.MyDatabase
 import com.example.myapplicationxml.view.NetworkRepository
 import dagger.Module
 import dagger.Provides
@@ -26,7 +30,10 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun providesOkHttpClient(apiRequestInterceptor: ApiRequestInterceptor,httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+    fun providesOkHttpClient(
+        apiRequestInterceptor: ApiRequestInterceptor,
+        httpLoggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient =
         OkHttpClient
             .Builder()
             .addInterceptor(apiRequestInterceptor)
@@ -50,4 +57,11 @@ object ApiModule {
     @Singleton
     @Provides
     fun providesRepository(apiService: ApiService) = NetworkRepository(apiService)
+
+    // for database injection
+    @Provides
+    @Singleton
+    fun provideDatabase(app: Application): MyDatabase =
+        Room.databaseBuilder(app, MyDatabase::class.java, MY_DATABASE)
+            .build()
 }
